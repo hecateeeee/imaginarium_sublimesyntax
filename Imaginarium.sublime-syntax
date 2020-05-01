@@ -1,0 +1,163 @@
+%YAML 1.2
+---
+# See http://www.sublimetext.com/docs/3/syntax.html
+name: Imaginarium
+file_extensions: [gen]
+scope: source.gen
+
+variables:
+  all: '^ *[Aa]ll'
+  ident: '[a-zA-Z][a-zA-Z0-9 -]+'
+  cm: 'can|must'
+  omo: 'one|many|other'
+
+contexts:
+  # The prototype context is prepended to all contexts but those setting
+  # meta_include_prototype: false.
+  prototype:
+    - include: comments
+
+  main:
+    # The main context is the initial starting point of our syntax.
+    # Include other contexts from here (or specify them directly).
+    - include: sentencePatterns
+    - include: keywords
+    #- include: numbers
+    - include: strings
+
+  keywords:
+    # Keywords are if, else for and while.
+    # Note that blackslashes don't need to be escaped within single quoted
+    # strings in YAML. When using single quoted strings, only single quotes
+    # need to be escaped: this is done by using two single quotes next to each
+    # other.
+    - match: '\b(a|an|is|are|be|being|have|has|should|exist|mutually|exclusive|at least|between|called\sits|kind\sof|kinds\sof|way\sof|[Pp]ressing|means|and|or)\b'
+      scope: keyword.control.gen
+
+  # numbers:
+  #   - match: '\b(-)?[0-9.]+\b'
+  #     scope: constant.numeric.example-c
+
+  strings:
+    # Strings begin and end with quotes, and use backslashes as an escape
+    # character.
+    - match: '"'
+      scope: punctuation.definition.string.begin.gen
+      push: inside_string
+
+  inside_string:
+    - meta_include_prototype: false
+    - meta_scope: string.quoted.double.gen
+    - match: '\.'
+      scope: constant.character.escape.gen
+    - match: '"'
+      scope: punctuation.definition.string.end.gen
+      pop: true
+
+  comments:
+    # Comments begin with a '//' and finish at the end of the line.
+    - match: '//'
+      scope: punctuation.definition.comment.gen
+      push:
+        # This is an anonymous context push for brevity.
+        - meta_scope: comment.line.double-slash.gen
+        - match: $\n?
+          pop: true
+
+    - match: '#'
+      scope: punctuation.definition.comment.gen
+      push:
+        # This is an anonymous context push for brevity.
+        - meta_scope: comment.line.hash.gen
+        - match: $\n?
+          pop: true
+
+  sentencePatterns:
+    - match: '({{all}} )?({{ident}}) (has|have) ({{ident}}) (from) ({{ident}})'
+      captures:
+        1: keyword.operator.word.gen
+        2: entity.name.gen
+        3: keyword.operator.word.gen
+        4: entity.name.gen
+        5: keyword.operator.word.gen
+        6: variable.parameter.gen
+    - match: '({{all}} )?({{ident}}) (can|must) ({{ident}}) (one|many|other) ({{ident}})'
+      captures:
+        1: keyword.operator.word.gen
+        2: entity.name.gen
+        3: keyword.operator.word.gen
+        4: entity.name.gen
+        5: keyword.control.gen
+        6: entity.name.gen
+    - match: '({{ident}}) (is|are) (rare|common)'
+      captures:
+        1: entity.name.gen
+        2: keyword.operator.word.gen
+        3: constant.language.gen
+    - match: '({{ident}}) (and) ({{ident}}) (are) (mutually exclusive)'
+      captures:
+        1: entity.name.gen
+        2: keyword.operator.word.gen
+        3: entity.name.gen
+        4: keyword.operator.word.gen
+        5: constant.language.gen
+    - match: '({{ident}}) (is) (mutually exclusive with) ({{ident}})'
+      captures:
+        1: entity.name.gen
+        2: keyword.operator.word.gen
+        3: constant.language.gen
+        4: entity.name.gen
+    - match: '({{ident}}) (implies|is a way of) ({{ident}})'
+      captures:
+        1: entity.name.gen
+        2: keyword.operator.word.gen
+        3: entity.name.gen
+    - match: '({{all}} )?({{ident}}) (can|cannot|always) ({{ident}}) (itself|each other)'
+      captures:
+        1: keyword.operator.word.gen
+        2: entity.name.gen
+        3: keyword.operator.word.gen
+        4: entity.name.gen
+        5: constant.language.gen
+    - match: '({{all}} )?({{ident}}) (can|cannot|always) ({{ident}}) (another) ({{ident}})'
+      captures:
+        1: keyword.operator.word.gen
+        2: entity.name.gen
+        3: keyword.operator.word.gen
+        4: entity.name.gen
+        5: constant.language.gen
+        6: entity.name.gen
+
+
+
+  sentencePatterns2:
+    - name: sentence.buttonDeclaration
+      match: '[Pp]ressing\s+"(.+)"\s+means\s+"(.+)"'
+      scope: string.quoted
+    - name: sentence.kindsof
+      match: '(.+)\band\b(.+)\sare\s+kinds\s+of\s(.+)'
+      scope: string.quoted
+    - name: sentence.kindof
+      match: '(.+)\sis\s+a\s+kind\s+of\s(.+)'
+      scope: string.quoted
+    - name: sentence.adjectives
+      match: '(.+)\s(is|are)\s+(.+)'
+      scope: string.quoted
+    - name: sentence.optionalAdjectives
+      match: '(.+)\scan\s+be\s+(.+)'
+      scope: string.quoted
+    - name: sentence.partDeclaration
+      match: '(.+)\s(have|has)\s+(.+)\bcalled\s+its\b(.+)'
+      scope: string.quoted
+    - name: sentence.listPropertyDeclaration
+      match: '(.+)\s(have|has)\s+(.+)\bfrom\b(.+)'
+      scope: string.quoted
+    - name: sentence.numericPropertyDeclaration
+      match: '(.+)\s(have|has)\s+an?\s+(.+)\bbetween\s+-?[0-9]+\s+and\s+-?[0-9]+'
+      scope: string.quoted
+    - name: verbDecl
+      match: '.+\bcan\b.+\bother\b.+'
+      scope: string.quoted
+    - name: sentence.doNotMention
+      match: '[Dd]o\s+not\s+mention\s+being\b.+'
+      scope: string.quoted

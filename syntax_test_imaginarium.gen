@@ -1,0 +1,105 @@
+# SYNTAX TEST "Packages/User/Imaginarium/Imaginarium.sublime-syntax"
+
+# This is a comment
+#^^^^^^^^^^^^^^^^^^^ comment.line.hash.gen
+  "This is a string"
+# ^^^^^^^^^^^^^^^^^^ string.quoted.double.gen
+# ^ punctuation.definition.string.begin.gen
+#                  ^ string.quoted.double.gen punctuation.definition.string.end.gen  
+
+  pressing "Buttonname" means "Anytext"
+# ^^^^^^^^ keyword.control.gen
+#          ^^^^^^^^^^^^ string.quoted.double.gen
+#                       ^^^^^ keyword.control.gen
+#                             ^^^^^^^^^ string.quoted.double.gen    
+
+  All gods have a name from godnames.
+# ^^^^ keyword.operator.word.gen
+#     ^^^^ entity.name.gen
+#          ^^^^ keyword.operator.word.gen
+#               ^^^^^^ entity.name.gen
+#                      ^^^^ keyword.operator.word.gen
+#                           ^^^^^^^^ variable.parameter.gen
+
+  A god has a name from godnames.
+# ^^^^^ entity.name.gen
+#       ^^^ keyword.operator.word.gen
+#           ^^^^^^ entity.name.gen
+#                  ^^^^ keyword.operator.word.gen
+#                       ^^^^^^^^ variable.parameter.gen
+
+  all Subject can Verb one Object
+# ^^^^ keyword.operator.word.gen
+#     ^^^^^^^ entity.name.gen
+#             ^^^ keyword.operator.word.gen
+#                 ^^^^ entity.name.gen
+#                      ^^^ keyword.control.gen
+#                          ^^^^^^ entity.name.gen
+
+
+  gods must hate one god.
+# ^^^^ entity.name.gen
+#      ^^^^ keyword.operator.word.gen
+#           ^^^^ entity.name.gen
+#                ^^^ keyword.control.gen
+#                    ^^^ entity.name.gen
+
+  love is rare
+# ^^^^ entity.name.gen
+#      ^^ keyword.operator.word.gen
+#         ^^^^ constant.language.gen
+
+  Verb is rare
+# ^^^^ entity.name.gen
+#      ^^ keyword.operator.word.gen
+#         ^^^^ constant.language.gen
+
+  Verb and Verb2 are mutually exclusive
+# ^^^^ entity.name.gen
+#      ^^^ keyword.operator.word.gen
+#          ^^^^^ entity.name.gen
+#                ^^^ keyword.operator.word.gen
+#                    ^^^^^^^^^^^^^^^^^^ constant.language.gen
+
+
+ Verb is mutually exclusive with Verb2
+#^^^^ entity.name.gen
+#     ^^ keyword.operator.word.gen
+#        ^^^^^^^^^^^^^^^^^^^^^^^ constant.language.gen
+#                                ^^^^^ entity.name.gen
+
+  Verb implies Verb2
+# ^^^^ entity.name.gen
+#      ^^^^^^^ keyword.operator.word.gen
+#              ^^^^^ entity.name.gen
+
+  Verb is a way of Verb2
+# ^^^^ entity.name.gen
+#      ^^^^^^^^^^^ keyword.operator.word.gen
+#                  ^^^^^ entity.name.gen
+
+all Subject cannot Verb itself
+all Subject always Verb itself
+all Subject can Verb each other
+Subjects can Verb another Subject
+
+Subject is/are a kind of Object
+Subjects is/are kinds of Object
+the plural of Subject is Object
+the singular of Subject is Object
+Subject is/are identified as "Anytext"
+Subject is/are described as "Anytext"
+[all] Subject can be Adjective
+Do not mention being Adjective
+Subject is Object
+Subject is [always] Object
+[all] Subject is/are Adjective
+[all] Subject is/are any LowerBound of Adjectives
+[all] Subject is/are between LowerBound and UpperBound of Adjectives
+[all] Subject can be up to LowerBound of Adjectives
+[all] Subject is/are Adjectives
+[all] Subject can be Adjectives
+[all] subject have/has Object between LowerBound and Upperbound
+[all] Subject have/has Object from ListName
+[all] Subject have/has Object called its AnyText
+Subject should exist/not exist
