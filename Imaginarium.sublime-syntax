@@ -66,11 +66,14 @@ contexts:
       captures:
         1: entity.name.gen
         2: constant.language.gen
-    - match: '([Pp]ressing) .* (means) .*'
-      captures:
-        1: keyword.control.gen
-        2: keyword.control.gen
-
+    - match: '[Pp]ressing'
+      scope: keyword.control.gen
+      push:
+        - include: strings
+        - match: means
+          scope: keyword.control.gen
+        - match: $\n?
+          pop: true
 
   sentencePatterns:
     - match: '({{all}} )?({{ident}}) (is|are) (any) ([0-9]+) (of) ({{ident}})'
