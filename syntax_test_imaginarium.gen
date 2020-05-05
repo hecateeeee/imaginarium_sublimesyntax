@@ -90,6 +90,7 @@
 #     ^^^^^^^ entity.name.gen
 #             ^^^^^^ keyword.operator.word.gen
 #                    ^^^^ entity.name.gen
+#                         ^^^^^^ constant.language.gen
 
   all Subject can Verb each other
 # ^^^^ keyword.operator.word.gen
@@ -154,13 +155,13 @@
 
   Subject is Object
 # ^^^^^^^ entity.name.gen
-#         ^^ keyword.operator.gen
+#         ^^ keyword.operator.word.gen
 #            ^^^^^^ entity.name.gen
 
   Subject is always Object
 # ^^^^^^^ entity.name.gen
-#         ^^ keyword.operator.gen
-#            ^^^^^^^ keyword.operator.gen
+#         ^^ keyword.operator.word.gen
+#            ^^^^^^^ keyword.operator.word.gen
 #                   ^^^^^^ entity.name.gen
 
   all Subject is any 100 of Adjectives
